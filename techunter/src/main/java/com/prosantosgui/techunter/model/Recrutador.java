@@ -1,9 +1,14 @@
 package com.prosantosgui.techunter.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 
 @Table(name = "recrutador_model")
@@ -11,13 +16,26 @@ import jakarta.persistence.Table;
 public class Recrutador {
 
 	@Id
+	@PrimaryKeyJoinColumn(name = "login_rec")
 	private String loginRec;
+	
+	@Column(nullable = false, length = 15)
 	private String senha;
+	
+	@Column(name = "nome_perfil", nullable = false, length = 35)
 	private String nome;
+	
+	@Column(nullable = false, length = 20)
 	private String pais;
+	
+	@Column(length = 20)
 	private String empresa;
 	
-	public Recrutador() {}
+	@OneToMany(mappedBy = "recrutador")
+	private List<Vaga> vagas = new ArrayList<>();
+	
+	public Recrutador() {
+	}
 
 	public Recrutador(String loginRec, String senha, String nome, String pais, String empresa) {
 		super();
@@ -46,6 +64,10 @@ public class Recrutador {
 
 	public String getEmpresa() {
 		return empresa;
+	}
+	
+	public List<Vaga> getVagas() {
+		return vagas;
 	}
 
 	public void setLoginRec(String loginRec) {
@@ -90,7 +112,5 @@ public class Recrutador {
 		return "Recrutador [loginRec=" + loginRec + ", senha=" + senha + ", nome=" + nome + ", pais=" + pais
 				+ ", empresa=" + empresa + "]";
 	}
-	
-	
-	
+
 }

@@ -10,20 +10,25 @@ import jakarta.persistence.Table;
 public class Candidato {
 	
 	@Id
-	@Column(name = "login_cand", nullable = false)
+	@Column(name = "login_cand", nullable = false, length = 15)
 	private String loginCand;
 	
-	@Column(nullable = false)
+	@Column(nullable = false, length = 15)
 	private String senha;
 
-	@Column(nullable = false)
+	@Column(nullable = false, length = 30)
 	private String nome;
 	
+	@Column(length = 20)
 	private String telefone;
+	
+	@Column(length = 20)
 	private String localizacao;
 	
 	@Column(name = "inicio_imediato")
 	private boolean inicioImediato;
+
+	@Column(length = 20)
 	private String estado;
 	
 }
