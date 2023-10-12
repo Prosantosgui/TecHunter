@@ -14,14 +14,14 @@ import com.prosantosgui.techunter.repositories.VagaRepository;
 public class VagaService {
 
 	@Autowired
-	private VagaRepository categoryRepository;
+	private VagaRepository vagaRepository;
 
 	public List<Vaga> findAll() {
-		return categoryRepository.findAll();
+		return vagaRepository.findAll();
 	}
 
 	public Vaga findById(Long id) {
-		Optional<Vaga> obj = categoryRepository.findById(id);
+		Optional<Vaga> obj = vagaRepository.findById(id);
 		return obj.get();
 	}
 }

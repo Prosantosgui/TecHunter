@@ -5,6 +5,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import com.prosantosgui.techunter.model.Candidato;
+import com.prosantosgui.techunter.model.Candidatura;
+import com.prosantosgui.techunter.repositories.CandidatoRepository;
+import com.prosantosgui.techunter.repositories.CandidaturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -25,7 +29,13 @@ public class TestConfig implements CommandLineRunner{
 
 	@Autowired
 	private RecrutadorRepository recrutadorRepository;
-	
+
+	@Autowired
+	private CandidaturaRepository candidaturaRepository;
+
+	@Autowired
+	private CandidatoRepository candidatoRepository;
+
 	@Override
 	public void run(String... args) throws Exception {
 		
@@ -51,7 +61,7 @@ public class TestConfig implements CommandLineRunner{
 	    Vaga vaga1 = new Vaga(
 	            null,                         // idVaga
 	            rec1,           // recrutador (você deve criar um objeto Recrutador apropriado)
-	            "Desenvolvedor",            // tipo
+	            "Desenvolvedor Java",            // tipo
 	            "Tempo integral",           // tempoTrabalho
 	            "Descrição da vaga",        // descricao
 	            stacks,                     // stacks
@@ -61,11 +71,53 @@ public class TestConfig implements CommandLineRunner{
 	            "Superior completo",        // escolaridade
 	            "Brasil",                   // pais
 	            "São Paulo",                // estado
-	            Instant.now()               // data (você pode ajustar isso de acordo com a data desejada)
+	            Instant.now()
 	        );
+	    Vaga vaga2 = new Vaga(
+	    		null,                         // idVaga
+	    		rec2,           // recrutador (você deve criar um objeto Recrutador apropriado)
+	    		"Java Developer",            // tipo
+	    		"Tempo integral",           // tempoTrabalho
+	    		"Descrição da vaga",        // descricao
+	    		stacks,                     // stacks
+	    		"PJ",                      // regime
+	    		beneficios,                 // beneficios
+	    		salario,                    // salario
+	    		"Superior completo",        // escolaridade
+	    		"Estados Unidos",                   // pais
+	    		"California",                // estado
+	    		Instant.now()
+	    		);
+		Vaga vaga3 = new Vaga(
+	    		null,                         // idVaga
+	    		rec2,           // recrutador (você deve criar um objeto Recrutador apropriado)
+	    		"C# Developer",            // tipo
+	    		"Tempo integral",           // tempoTrabalho
+	    		"Descrição da vaga",        // descricao
+	    		stacks,                     // stacks
+	    		"PJ",                      // regime
+	    		beneficios,                 // beneficios
+	    		salario,                    // salario
+	    		"Superior completo",        // escolaridade
+	    		"Estados Unidos",                   // pais
+	    		"New York",                // estado
+	    		Instant.now()
+	    		);
 	    
-	    vagaRepository.save(vaga1);
+	    vagaRepository.saveAll(Arrays.asList(vaga1, vaga2, vaga3));
+
+		Candidato cand1 = new Candidato("Vino23","21451","Vinicius","2154156165","Rio de Janeiro",true,"RJ");
+		Candidato cand2 = new Candidato("Hid89","51561","Romeu","2191353517","Rio de Janeiro",true,"RJ");
+
+		candidatoRepository.saveAll(Arrays.asList(cand1, cand2));
+
+		Candidatura candidatura1 = new Candidatura(cand1, vaga2, Instant.now());
+		Candidatura candidatura2 = new Candidatura(cand1, vaga1, Instant.now());
+		Candidatura candidatura3 = new Candidatura(cand2, vaga2, Instant.now());
+		Candidatura candidatura4 = new Candidatura(cand2, vaga3, Instant.now());
+
+		candidaturaRepository.saveAll(Arrays.asList(candidatura1, candidatura2, candidatura3, candidatura4));
+
 	}
-	
 	
 }

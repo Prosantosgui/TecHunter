@@ -2,24 +2,19 @@ package com.prosantosgui.techunter.model;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+@SuppressWarnings("ALL")
 @Table(name = "vaga_model")
 @Entity
 public class Vaga implements Serializable{
-
 
 	private static final long serialVersionUID = 1L;
 
@@ -61,6 +56,9 @@ public class Vaga implements Serializable{
 	
 	@Column(name = "data_vaga")
 	private Instant data;
+
+	@OneToMany(mappedBy = "id.vaga")
+	private Set<Candidatura> candidatos = new HashSet<>();
 
 	public Vaga(){
 
@@ -136,6 +134,11 @@ public class Vaga implements Serializable{
 	public Instant getData() {
 		return data;
 	}
+
+	/*
+	public HashSet<Candidato> getCandidatos() {
+		return candidatos;
+	}*/
 
 	public void setIdVaga(Long idVaga) {
 		this.idVaga = idVaga;
