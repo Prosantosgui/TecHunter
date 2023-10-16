@@ -1,7 +1,7 @@
-package com.prosantosgui.techunter.controllers;
+package com.prosantosgui.techunter.resources;
 
-import com.prosantosgui.techunter.model.Candidato;
-import com.prosantosgui.techunter.services.CandidatoService;
+import com.prosantosgui.techunter.model.Recruiter;
+import com.prosantosgui.techunter.services.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,21 +12,21 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/candidatos")
-public class CandidatoController {
+@RequestMapping("/recruiters")
+public class RecruiterResource {
 
 	@Autowired
-	private CandidatoService service;
+	private RecruiterService service;
 	
 	@GetMapping
-	public ResponseEntity<List<Candidato>> findAll(){
-		List<Candidato> list = service.findAll(); 
+	public ResponseEntity<List<Recruiter>> findAll(){
+		List<Recruiter> list = service.findAll(); 
 		return ResponseEntity.ok().body(list);
 	}
 	
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<Candidato> findById(@PathVariable String id){
-		Candidato obj = service.findById(id);
+	public ResponseEntity<Recruiter> findById(@PathVariable String id){
+		Recruiter obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 }
