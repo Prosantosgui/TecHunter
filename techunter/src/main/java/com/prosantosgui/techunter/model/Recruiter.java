@@ -12,7 +12,8 @@ public class Recruiter {
 
 	@Id
 	private String login;
-	
+
+
 	@Column(nullable = false, length = 15)
 	private String password;
 	

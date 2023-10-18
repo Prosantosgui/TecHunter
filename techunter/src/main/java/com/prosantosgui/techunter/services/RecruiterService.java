@@ -1,26 +1,16 @@
 package com.prosantosgui.techunter.services;
 
 import com.prosantosgui.techunter.model.Recruiter;
-import com.prosantosgui.techunter.repositories.RecruiterRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.Optional;
 
+public interface RecruiterService {
 
-@Service
-public class RecruiterService {
+	List<Recruiter> findAll();
 
-	@Autowired
-	private RecruiterRepository recruiterRepository;
+	Recruiter findById(String id);
 
-	public List<Recruiter> findAll() {
-		return recruiterRepository.findAll();
-	}
+	ResponseEntity<Recruiter> saveRecruiter(Recruiter recruiter);
 
-	public Recruiter findById(String id) {
-		Optional<Recruiter> obj = recruiterRepository.findById(id);
-		return obj.get();
-	}
 }

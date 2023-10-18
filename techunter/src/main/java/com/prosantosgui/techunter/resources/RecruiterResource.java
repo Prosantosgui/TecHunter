@@ -45,4 +45,9 @@ public class RecruiterResource {
 		Recruiter obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+
+	public ResponseEntity<Recruiter> save(@RequestBody Recruiter recruiter){
+
+		return service.saveRecruiter(recruiter);
+	}
 }
