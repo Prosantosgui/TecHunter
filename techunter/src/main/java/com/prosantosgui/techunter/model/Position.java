@@ -1,15 +1,15 @@
 package com.prosantosgui.techunter.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.prosantosgui.techunter.model.enums.PositionStatus;
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.*;
 
 @Table(name = "position_model")
 @Entity
@@ -56,7 +56,9 @@ public class Position implements Serializable{
 
 	private Instant date;
 
-	@OneToMany(mappedBy = "id.position")
+	private Integer positionStatus;
+
+	@OneToMany(mappedBy = "id.position", cascade = CascadeType.ALL)
 	private Set<Application> Candidates = new HashSet<>();
 
 	public Position(){
@@ -65,7 +67,7 @@ public class Position implements Serializable{
 
 	public Position(Long id, Recruiter recruiter, String type, String workDuration, String description,
 					List<String> stacks, String employmentType, List<String> benefits, List<String> salaryRanges,
-					String requiredEducation, String country, String state, Instant date) {
+					String requiredEducation, String country, String state, Instant date, PositionStatus positionStatus) {
 		super();
 		this.id = id;
 		this.recruiter = recruiter;
@@ -80,6 +82,7 @@ public class Position implements Serializable{
 		this.country = country;
 		this.state = state;
 		this.date = date;
+		setPositionStatus(positionStatus);
 	}
 
 	public Long getId() {return id;}
@@ -108,6 +111,10 @@ public class Position implements Serializable{
 
 	public Instant getDate() {return date;}
 
+	public PositionStatus getPositionStatus() {
+		return PositionStatus.valueOf(positionStatus);
+	}
+
 	public void setId(Long id) {this.id = id;}
 
 	public void setRecruiter(Recruiter recruiter) {this.recruiter = recruiter;}
@@ -133,6 +140,12 @@ public class Position implements Serializable{
 	public void setState(String state) {this.state = state;}
 
 	public void setDate(Instant date) {this.date = date;}
+
+	public void setPositionStatus(PositionStatus positionStatus) {
+		if(positionStatus != null) {
+			this.positionStatus = positionStatus.getCode();
+		}
+	}
 
 	@Override
 	public boolean equals(Object o) {

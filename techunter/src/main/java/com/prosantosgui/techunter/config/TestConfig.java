@@ -4,6 +4,7 @@ import com.prosantosgui.techunter.model.Application;
 import com.prosantosgui.techunter.model.Candidate;
 import com.prosantosgui.techunter.model.Position;
 import com.prosantosgui.techunter.model.Recruiter;
+import com.prosantosgui.techunter.model.enums.PositionStatus;
 import com.prosantosgui.techunter.services.ApplicationService;
 import com.prosantosgui.techunter.services.CandidateService;
 import com.prosantosgui.techunter.services.PositionService;
@@ -70,7 +71,8 @@ public class TestConfig implements CommandLineRunner{
 					"Superior completo",        // escolaridade
 					"Brasil",                   // pais
 					"São Paulo",                // estado
-					Instant.now()
+					Instant.now(),
+					PositionStatus.OPEN
 			);
 			Position position2 = new Position(
 					null,                         // idPosition
@@ -85,7 +87,8 @@ public class TestConfig implements CommandLineRunner{
 					"Superior completo",        // escolaridade
 					"Estados Unidos",                   // pais
 					"California",                // estado
-					Instant.now()
+					Instant.now(),
+					PositionStatus.OPEN
 			);
 			Position position3 = new Position(
 					null,                         // idPosition
@@ -100,7 +103,8 @@ public class TestConfig implements CommandLineRunner{
 					"Superior completo",        // escolaridade
 					"Estados Unidos",                   // pais
 					"New York",                // estado
-					Instant.now()
+					Instant.now(),
+					PositionStatus.CLOSED
 			);
 
 			positionService.savePosition(position1);
