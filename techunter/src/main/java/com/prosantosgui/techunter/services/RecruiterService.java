@@ -13,4 +13,5 @@ public interface RecruiterService {
 
 	ResponseEntity<Recruiter> saveRecruiter(Recruiter recruiter);
 
+	ResponseEntity<Recruiter> deleteById(String id);
 }

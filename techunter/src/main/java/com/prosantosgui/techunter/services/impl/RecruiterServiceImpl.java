@@ -36,4 +36,17 @@ public class RecruiterServiceImpl implements RecruiterService {
         Recruiter recruiterSaved = recruiterRepository.save(recruiter);
         return new ResponseEntity<>(recruiterSaved, HttpStatus.CREATED);
     }
+
+    @Override
+    public ResponseEntity<Recruiter> deleteById(String id) {
+        Optional<Recruiter> recruiter = recruiterRepository.findById(id);
+
+        if(recruiter.isPresent()){
+            recruiterRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else {
+            throw new NoSuchElementException();
+        }
+
+    }
 }

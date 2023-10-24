@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -46,8 +47,39 @@ public class RecruiterResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
+	@PostMapping(value = "/recruiters")
+	@Operation(summary = "Save a new recruiter", method = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "422", description = "Invalid data"),
+			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
+			@ApiResponse(responseCode = "500", description = "Error saving data"),
+	})
 	public ResponseEntity<Recruiter> save(@RequestBody Recruiter recruiter){
+		try{
+			return service.saveRecruiter(recruiter);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(recruiter, HttpStatus.BAD_REQUEST);
+	}
 
-		return service.saveRecruiter(recruiter);
+	@DeleteMapping(value = "/recruiters/{id}")
+	@Operation(summary = "Delete an existing recruiter", method = "DELETE")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "422", description = "Invalid data"),
+			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
+			@ApiResponse(responseCode = "500", description = "Error deleting data"),
+	})
+	public ResponseEntity<Recruiter> deleteById(@PathVariable String id){
+		try{
+			return service.deleteById(id);
+
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 }
