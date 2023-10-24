@@ -37,4 +37,16 @@ public class PositionServiceImpl implements PositionService {
         Position positionSaved = positionRepository.save(position);
         return new ResponseEntity<>(positionSaved, HttpStatus.CREATED);
     }
+
+    @Override
+    public ResponseEntity<Position> deleteById(Long id) {
+        Optional<Position> position = positionRepository.findById(id);
+
+        if(position.isPresent()){
+            positionRepository.deleteById(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }else {
+            throw new NoSuchElementException();
+        }
+    }
 }

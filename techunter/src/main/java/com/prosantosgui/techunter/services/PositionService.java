@@ -13,4 +13,7 @@ public interface PositionService {
 	Position findById(Long id);
 
 	ResponseEntity<Position> savePosition(Position position);
+
+	ResponseEntity<Position> deleteById(Long id);
+
 }
