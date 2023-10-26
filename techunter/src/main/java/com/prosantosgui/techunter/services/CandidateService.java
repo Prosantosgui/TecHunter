@@ -15,4 +15,5 @@ public interface CandidateService {
 
 	ResponseEntity<Candidate> saveCandidate(Candidate candidate);
 
+	Candidate mapNewCandidate(Candidate candidateSaved, Candidate modifiedCandidate);
 }

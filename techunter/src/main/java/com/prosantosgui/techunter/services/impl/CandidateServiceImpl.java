@@ -39,4 +39,17 @@ public class CandidateServiceImpl implements CandidateService {
         Candidate candidateSaved = candidateRepository.save(candidate);
         return new ResponseEntity<>(candidateSaved, HttpStatus.CREATED);
     }
+
+    @Override
+    public Candidate mapNewCandidate(Candidate candidateSaved, Candidate modifiedCandidate) {
+        candidateSaved.setPassword(modifiedCandidate.getPassword());
+        candidateSaved.setName(modifiedCandidate.getName());
+        candidateSaved.setPhoneNumber(modifiedCandidate.getPhoneNumber());
+        candidateSaved.setEmail(modifiedCandidate.getEmail());
+        candidateSaved.setLocation(modifiedCandidate.getLocation());
+        candidateSaved.setImmediateAvailability(modifiedCandidate.ImmediateAvailability());
+        candidateSaved.setState(modifiedCandidate.getState());
+
+        return candidateSaved;
+    }
 }

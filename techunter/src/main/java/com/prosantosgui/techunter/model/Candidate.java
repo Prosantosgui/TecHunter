@@ -59,7 +59,7 @@ public class Candidate {
 
 	public String getLocation() {return location;}
 
-	public boolean isImmediateAvailability() {return immediateAvailability;}
+	public boolean ImmediateAvailability() {return immediateAvailability;}
 
 	public String getState() {return state;}
 
