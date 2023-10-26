@@ -47,6 +47,29 @@ public class RecruiterResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
+	@Operation(summary = "Update a recruiter", method = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "422", description = "Invalid data"),
+			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
+			@ApiResponse(responseCode = "500", description = "Error updating data"),
+	})
+	@PutMapping(value = "/recruiters/{id}")
+	public ResponseEntity<Recruiter> update(@PathVariable String id, @RequestBody Recruiter modifiedRecruiter){
+		try{
+			Recruiter recruiterSaved = service.findById(id);
+			if(recruiterSaved != null){
+				Recruiter updatedRecruiter = service.mapNewRecruiter(recruiterSaved, modifiedRecruiter);
+				updatedRecruiter.setLogin(id);
+				service.saveRecruiter(updatedRecruiter);
+				return new ResponseEntity<>(updatedRecruiter,HttpStatus.OK);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return ResponseEntity.badRequest().build();
+	}
+
 	@PostMapping(value = "/recruiters")
 	@Operation(summary = "Save a new recruiter", method = "POST")
 	@ApiResponses(value = {
@@ -80,6 +103,6 @@ public class RecruiterResource {
 		}catch (Exception e){
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return ResponseEntity.notFound().build();
 	}
 }

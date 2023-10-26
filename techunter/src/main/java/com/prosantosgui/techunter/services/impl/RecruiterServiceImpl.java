@@ -49,4 +49,14 @@ public class RecruiterServiceImpl implements RecruiterService {
         }
 
     }
+
+    @Override
+    public Recruiter mapNewRecruiter(Recruiter recruiterSaved, Recruiter modifiedRecruiter) {
+        recruiterSaved.setName(modifiedRecruiter.getName());
+        recruiterSaved.setCompany(modifiedRecruiter.getCompany());
+        recruiterSaved.setCountry(modifiedRecruiter.getCountry());
+        recruiterSaved.setPassword(modifiedRecruiter.getPassword());
+
+        return recruiterSaved;
+    }
 }
