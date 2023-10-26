@@ -52,4 +52,16 @@ public class CandidateServiceImpl implements CandidateService {
 
         return candidateSaved;
     }
+
+    @Override
+    public ResponseEntity<String> deleteById(String id) {
+        Optional<Candidate> candidate = candidateRepository.findById(id);
+
+        if(candidate.isPresent()){
+            candidateRepository.deleteById(id);
+            return new ResponseEntity<>("Candidate deleted successfully!",HttpStatus.OK);
+        }else {
+            return new ResponseEntity<>("Candidate not found!",HttpStatus.NOT_FOUND);
+        }
+    }
 }

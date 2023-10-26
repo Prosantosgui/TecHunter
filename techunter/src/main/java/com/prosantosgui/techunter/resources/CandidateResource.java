@@ -86,4 +86,21 @@ public class CandidateResource {
 		}
 		return ResponseEntity.badRequest().build();
 	}
+
+	@Operation(summary = "Delete a candidate", method = "DELETE")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "422", description = "Invalid data"),
+			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
+			@ApiResponse(responseCode = "500", description = "Error deleting data"),
+	})
+	@DeleteMapping(value = "/candidates/{id}")
+	public ResponseEntity<String> deleteById(@PathVariable String id){
+		try{
+			return service.deleteById(id);
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return ResponseEntity.notFound().build();
+	}
 }
