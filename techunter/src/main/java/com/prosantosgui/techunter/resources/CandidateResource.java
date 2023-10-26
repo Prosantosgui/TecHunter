@@ -47,7 +47,7 @@ public class CandidateResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@Operation(summary = "Update a candidate", method = "PUT")
+	@Operation(summary = "Update an existing candidate", method = "PUT")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Sucess"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
@@ -87,7 +87,7 @@ public class CandidateResource {
 		return ResponseEntity.badRequest().build();
 	}
 
-	@Operation(summary = "Delete a candidate", method = "DELETE")
+	@Operation(summary = "Delete an existing candidate", method = "DELETE")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Sucess"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),

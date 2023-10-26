@@ -76,7 +76,7 @@ public class PositionResource {
 	}
 
 	@PostMapping(value = "/positions")
-	@Operation(summary = "Save a position", method = "POST")
+	@Operation(summary = "Save a new position", method = "POST")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Sucess"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),

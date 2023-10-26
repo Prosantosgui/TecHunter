@@ -47,7 +47,7 @@ public class RecruiterResource {
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@Operation(summary = "Update a recruiter", method = "PUT")
+	@Operation(summary = "Update an existing recruiter", method = "PUT")
 	@ApiResponses(value = {
 			@ApiResponse(responseCode = "200", description = "Sucess"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
