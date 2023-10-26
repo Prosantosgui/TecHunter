@@ -43,8 +43,54 @@ public class PositionResource {
 			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
 	})
 	public ResponseEntity<Position> findById(@PathVariable Long id){
-		Position obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		try {
+			Position obj = service.findById(id);
+			return ResponseEntity.ok().body(obj);
+		}catch (RuntimeException e){
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+	@PutMapping(value = "/positions/{id}")
+	@Operation(summary = "Update an existing position", method = "PUT")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "422", description = "Invalid data"),
+			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
+			@ApiResponse(responseCode = "500", description = "Error updating data"),
+	})
+	public ResponseEntity<Position> update(@PathVariable Long id, @RequestBody Position ModifiedPosition){
+		try{
+			Position positionSaved = service.findById(id);
+			if(positionSaved != null){
+				Position updatedPosition = service.mapNewPosition(positionSaved, ModifiedPosition);
+				updatedPosition.setId(id);
+				service.savePosition(updatedPosition);
+				return new ResponseEntity<>(updatedPosition,HttpStatus.OK);
+			}
+		}catch (Exception e){
+			e.printStackTrace();
+		}
+		return ResponseEntity.badRequest().build();
+	}
+
+	@PostMapping(value = "/positions")
+	@Operation(summary = "Save a position", method = "POST")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "422", description = "Invalid data"),
+			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
+			@ApiResponse(responseCode = "500", description = "Error saving data"),
+	})
+	public ResponseEntity<Position> save(@RequestBody Position position){
+		try{
+			return service.savePosition(position);
+		}
+		catch(Exception e){
+			e.printStackTrace();
+		}
+		return ResponseEntity.badRequest().build();
 	}
 
 	@DeleteMapping(value = "/positions/{id}")
@@ -55,7 +101,7 @@ public class PositionResource {
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error deleting data"),
 	})
-	public ResponseEntity<Position> deleteById(@PathVariable Long id){
+	public ResponseEntity<String> deleteById(@PathVariable Long id){
 		try{
 			return service.deleteById(id);
 

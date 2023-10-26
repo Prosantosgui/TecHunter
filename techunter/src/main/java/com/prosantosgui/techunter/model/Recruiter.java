@@ -1,6 +1,8 @@
 package com.prosantosgui.techunter.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,19 +13,23 @@ import java.util.Objects;
 public class Recruiter {
 
 	@Id
+	@NotNull @NotBlank
 	private String login;
 
-
 	@Column(nullable = false, length = 15)
+	@NotNull @NotBlank
 	private String password;
 	
 	@Column(nullable = false, length = 35)
+	@NotNull @NotBlank
 	private String name;
 	
 	@Column(nullable = false, length = 20)
+	@NotNull @NotBlank
 	private String country;
 	
 	@Column(length = 20)
+	@NotNull @NotBlank
 	private String company;
 	
 	@OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

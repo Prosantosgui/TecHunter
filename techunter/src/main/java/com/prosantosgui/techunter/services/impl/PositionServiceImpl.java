@@ -24,9 +24,9 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public Position findById(Long id) {
-        Optional<Position> obj = positionRepository.findById(id);
-        if(obj.isPresent()){
-            return obj.get();
+        Optional<Position> position = positionRepository.findById(id);
+        if(position.isPresent()){
+            return position.get();
         }else{
             throw new NoSuchElementException();
         }
@@ -39,14 +39,31 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public ResponseEntity<Position> deleteById(Long id) {
+    public ResponseEntity<String> deleteById(Long id) {
         Optional<Position> position = positionRepository.findById(id);
 
         if(position.isPresent()){
             positionRepository.deleteById(id);
-            return new ResponseEntity<>(HttpStatus.OK);
+            return new ResponseEntity<>("Position deleted successfully!",HttpStatus.OK);
         }else {
-            throw new NoSuchElementException();
+            return new ResponseEntity<>("Position not found!",HttpStatus.NOT_FOUND);
         }
+    }
+
+    @Override
+    public Position mapNewPosition(Position positionSaved, Position modifiedPosition) {
+        positionSaved.setType(modifiedPosition.getType());
+        positionSaved.setRequiredEducation(modifiedPosition.getRequiredEducation());
+        positionSaved.setDescription(modifiedPosition.getDescription());
+        positionSaved.setStacks(modifiedPosition.getStacks());
+        positionSaved.setEmploymentType(modifiedPosition.getEmploymentType());
+        positionSaved.setBenefits(modifiedPosition.getBenefits());
+        positionSaved.setSalaryRanges(modifiedPosition.getSalaryRanges());
+        positionSaved.setRequiredEducation(modifiedPosition.getRequiredEducation());
+        positionSaved.setCountry(modifiedPosition.getCountry());
+        positionSaved.setState(modifiedPosition.getState());
+        positionSaved.setDate(modifiedPosition.getDate());
+        positionSaved.setPositionStatus(modifiedPosition.getPositionStatus());
+        return positionSaved;
     }
 }

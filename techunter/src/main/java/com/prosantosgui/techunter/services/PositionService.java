@@ -8,12 +8,12 @@ import java.util.List;
 public interface PositionService {
 
 	List<Position> findAll() ;
-	
 
 	Position findById(Long id);
 
 	ResponseEntity<Position> savePosition(Position position);
 
-	ResponseEntity<Position> deleteById(Long id);
+	ResponseEntity<String> deleteById(Long id);
 
+	Position mapNewPosition(Position positionSaved, Position modifiedPosition);
 }
