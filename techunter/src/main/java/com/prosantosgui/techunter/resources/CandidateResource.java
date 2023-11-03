@@ -43,8 +43,11 @@ public class CandidateResource {
 			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
 	})
 	public ResponseEntity<Candidate> findById(@PathVariable String id){
-		Candidate obj = service.findById(id);
-		return ResponseEntity.ok().body(obj);
+		Candidate candidate = service.findById(id);
+		if (candidate == null){
+			return ResponseEntity.notFound().build();
+		}
+		return ResponseEntity.ok().body(candidate);
 	}
 
 	@Operation(summary = "Update an existing candidate", method = "PUT")

@@ -9,7 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -25,13 +24,8 @@ public class CandidateServiceImpl implements CandidateService {
 
     @Override
     public Candidate findById(String id) {
-        Optional<Candidate> obj = candidateRepository.findById(id);
 
-        if(obj.isPresent()){
-            return obj.get();
-        }else{
-            throw new NoSuchElementException();
-        }
+        return candidateRepository.findById(id).orElse(null);
     }
 
     @Override

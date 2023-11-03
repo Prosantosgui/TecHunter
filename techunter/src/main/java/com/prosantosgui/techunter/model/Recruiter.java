@@ -33,7 +33,7 @@ public class Recruiter {
 	private String company;
 	
 	@OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	private List<Position> positions = new ArrayList<>();
+	private final List<Position> positions = new ArrayList<>();
 	
 	public Recruiter() {
 	}

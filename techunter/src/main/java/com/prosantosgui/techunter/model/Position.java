@@ -59,7 +59,7 @@ public class Position implements Serializable{
 	private Integer positionStatus;
 
 	@OneToMany(mappedBy = "id.position", cascade = CascadeType.ALL)
-	private Set<Application> Candidates = new HashSet<>();
+	private final Set<Application> Candidates = new HashSet<>();
 
 	public Position(){
 

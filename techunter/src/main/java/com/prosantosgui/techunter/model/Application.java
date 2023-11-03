@@ -18,7 +18,7 @@ public class Application implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @EmbeddedId
-    private ApplicationPK id = new ApplicationPK();
+    private final ApplicationPK id = new ApplicationPK();
 
     private Instant date;
 

@@ -4,7 +4,7 @@ public enum PositionStatus {
     OPEN(1),
     CLOSED(2);
 
-    private int code;
+    private final int code;
 
     PositionStatus(int code) {
         this.code = code;

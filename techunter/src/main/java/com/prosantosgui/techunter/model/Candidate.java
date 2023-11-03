@@ -33,7 +33,7 @@ public class Candidate {
 	private String email;
 
 	@OneToMany(mappedBy = "id.candidate", cascade = CascadeType.ALL)
-	private Set<Application> applications = new HashSet<>();
+	private final Set<Application> applications = new HashSet<>();
 
 	public Candidate(){
 	}
