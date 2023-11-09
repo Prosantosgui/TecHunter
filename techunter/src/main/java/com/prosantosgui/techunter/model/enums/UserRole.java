@@ -1,8 +1,12 @@
 package com.prosantosgui.techunter.model.enums;
 
+//TODO definir as ROLES de acordo com a lógica do sistema
 public enum UserRole {
     ADMIN("admin"),
-    USER("user");
+    RECRUITER("recruiter"),
+
+    CANDIDATE("candidate");
+
 
     private final String role;
 

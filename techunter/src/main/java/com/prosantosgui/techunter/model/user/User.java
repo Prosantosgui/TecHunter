@@ -42,8 +42,13 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == UserRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
-        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        //TODO: Testar um switch case com as roles
+        return switch (this.role) {
+            case ADMIN -> List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_RECRUITER"), new SimpleGrantedAuthority("ROLE_CANDIDATE"));
+            case RECRUITER -> List.of(new SimpleGrantedAuthority("ROLE_RECRUITER"));
+            case CANDIDATE -> List.of(new SimpleGrantedAuthority("ROLE_CANDIDATE"));
+        };
+
     }
 
     @Override
