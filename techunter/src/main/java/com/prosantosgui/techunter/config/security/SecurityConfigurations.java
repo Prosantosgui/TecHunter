@@ -22,7 +22,6 @@ public class SecurityConfigurations{
     @Autowired
     SecurityFilter securityFilter;
 
-    //TODO definir coretamente os requestMatchers para cada ROLE de acordo com a lógica do sistema
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
@@ -31,14 +30,10 @@ public class SecurityConfigurations{
                 .authorizeHttpRequests(authorize ->  authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers("/api/positions").hasRole("ADMIN")
-                        .requestMatchers("/api/positions").hasRole("RECRUITER")
+                        .requestMatchers("/api/positions").hasRole( "RECRUITER")
                         .requestMatchers(HttpMethod.GET,"/api/positions").hasRole("CANDIDATE")
-                        .requestMatchers("/api/recruiters").hasRole("ADMIN")
                         .requestMatchers("/api/recruiters").hasRole("RECRUITER")
-                        .requestMatchers("/api/candidates").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET,"/api/candidates").hasRole("RECRUITER")
-
 
                         .anyRequest().authenticated()
                 )

@@ -42,7 +42,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        //TODO: Testar um switch case com as roles
+
         return switch (this.role) {
             case ADMIN -> List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_RECRUITER"), new SimpleGrantedAuthority("ROLE_CANDIDATE"));
             case RECRUITER -> List.of(new SimpleGrantedAuthority("ROLE_RECRUITER"));
