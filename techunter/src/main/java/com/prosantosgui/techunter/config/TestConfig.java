@@ -5,6 +5,7 @@ import com.prosantosgui.techunter.model.Candidate;
 import com.prosantosgui.techunter.model.Position;
 import com.prosantosgui.techunter.model.Recruiter;
 import com.prosantosgui.techunter.model.enums.PositionStatus;
+import com.prosantosgui.techunter.repositories.PositionRepository;
 import com.prosantosgui.techunter.services.ApplicationService;
 import com.prosantosgui.techunter.services.CandidateService;
 import com.prosantosgui.techunter.services.PositionService;
@@ -35,6 +36,14 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private CandidateService candidateService;
 
+	@Autowired
+	private PositionRepository positionRepository;
+
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+	}
+
 	@Override
 	public void run(String... args) throws Exception {
 		try {
@@ -52,14 +61,13 @@ public class TestConfig implements CommandLineRunner{
 			salario.add("5000");
 			salario.add("6000");
 
-			Recruiter rec1 = new Recruiter("DeskTec", "1234", "Felipe Alves", "Brasil", "Desk Tecnologias");
-			Recruiter rec2 = new Recruiter("Task301", "12525", "Julia Souza", "Brasil", "Rust Solutions");
+			Recruiter rec1 = new Recruiter("DeskTec",  "Felipe Alves", "Brasil", "Desk Tecnologias");
+			Recruiter rec2 = new Recruiter("Task301",  "Julia Souza", "Brasil", "Rust Solutions");
 
 			recruiterService.saveRecruiter(rec1);
 			recruiterService.saveRecruiter(rec2);
 
-			Position position1 = new Position(
-					null,                         // idPosition
+			Position position1 = new Position(// idPosition
 					rec1,           // recruiter (você deve criar um objeto Recruiter apropriado)
 					"Desenvolvedor Java",            // tipo
 					"Tempo integral",           // tempoTrabalho
@@ -75,7 +83,7 @@ public class TestConfig implements CommandLineRunner{
 					PositionStatus.OPEN
 			);
 			Position position2 = new Position(
-					null,                         // idPosition
+					// idPosition
 					rec2,           // recruiter (você deve criar um objeto Recruiter apropriado)
 					"Java Developer",            // tipo
 					"Tempo integral",           // tempoTrabalho
@@ -91,7 +99,7 @@ public class TestConfig implements CommandLineRunner{
 					PositionStatus.OPEN
 			);
 			Position position3 = new Position(
-					null,                         // idPosition
+					                    // idPosition
 					rec2,           // recruiter (você deve criar um objeto Recruiter apropriado)
 					"C# Developer",            // tipo
 					"Tempo integral",           // tempoTrabalho
@@ -107,9 +115,10 @@ public class TestConfig implements CommandLineRunner{
 					PositionStatus.CLOSED
 			);
 
-			positionService.savePosition(position1);
-			positionService.savePosition(position2);
-			positionService.savePosition(position3);
+			positionRepository.save(position1);
+			positionRepository.save(position2);
+			positionRepository.save(position3);
+
 
 			Candidate cand1 = new Candidate("Vino23", "21451", "Vinicius", "2154156165", "Rio de Janeiro", true, "RJ");
 			Candidate cand2 = new Candidate("Hid89", "51561", "Romeu", "2191353517", "Rio de Janeiro", true, "RJ");

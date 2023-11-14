@@ -40,20 +40,29 @@ public class PositionServiceImpl implements PositionService {
 
     @Override
     public ResponseEntity<String> deleteById(Long id) {
-        Optional<Position> position = positionRepository.findById(id);
+        String userLoggedName = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        if(position.isPresent()){
+        Optional<Position> position = positionRepository.findById(id);
+        if(position.isPresent() && position.get().getRecruiter().getLogin().equals(userLoggedName)){
             positionRepository.deleteById(id);
-            return new ResponseEntity<>("Position deleted successfully!",HttpStatus.OK);
+            return new ResponseEntity<>("Position deleted successfully!", HttpStatus.OK);
+
         }else {
-            return new ResponseEntity<>("Position not found!",HttpStatus.NOT_FOUND);
+
+            if (position.isEmpty()){
+                return new ResponseEntity<String>("Position not found!", HttpStatus.NOT_FOUND);
+            }else {
+                return new ResponseEntity<String>("You have no permission to delete this Position!", HttpStatus.FORBIDDEN);
+            }
+
         }
     }
 
     @Override
-    public Position mapNewPosition(Position positionSaved, Position modifiedPosition) {
+    public Position mapNewPosition(Long id, Position positionSaved, Position modifiedPosition) {
+        positionSaved.setId(id);
         positionSaved.setType(modifiedPosition.getType());
-        positionSaved.setRequiredEducation(modifiedPosition.getRequiredEducation());
+        positionSaved.setWorkDuration(modifiedPosition.getWorkDuration());
         positionSaved.setDescription(modifiedPosition.getDescription());
         positionSaved.setStacks(modifiedPosition.getStacks());
         positionSaved.setEmploymentType(modifiedPosition.getEmploymentType());
@@ -65,5 +74,20 @@ public class PositionServiceImpl implements PositionService {
         positionSaved.setDate(modifiedPosition.getDate());
         positionSaved.setPositionStatus(modifiedPosition.getPositionStatus());
         return positionSaved;
+    }
+
+    @Override
+    public ResponseEntity<Position> updatePosition(Long id, Position positionSaved, Position modifiedPosition) {
+
+        String userLoggedName = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        if(positionSaved.getRecruiter().getLogin().equals(userLoggedName)){
+            Position updatedPosition = this.mapNewPosition(id, positionSaved,modifiedPosition);
+            positionRepository.save(updatedPosition);
+            return new ResponseEntity<>(updatedPosition, HttpStatus.OK);
+        }else {
+                return new ResponseEntity<>(modifiedPosition, HttpStatus.FORBIDDEN);
+        }
+
     }
 }

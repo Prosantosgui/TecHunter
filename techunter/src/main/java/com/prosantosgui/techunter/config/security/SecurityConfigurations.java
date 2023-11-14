@@ -30,7 +30,7 @@ public class SecurityConfigurations{
                 .authorizeHttpRequests(authorize ->  authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
-                        .requestMatchers("/api/positions").hasRole( "RECRUITER")
+                        .requestMatchers("/api/positions").hasRole("RECRUITER")
                         .requestMatchers(HttpMethod.GET,"/api/positions").hasRole("CANDIDATE")
                         .requestMatchers("/api/recruiters").hasRole("RECRUITER")
                         .requestMatchers(HttpMethod.GET,"/api/candidates").hasRole("RECRUITER")

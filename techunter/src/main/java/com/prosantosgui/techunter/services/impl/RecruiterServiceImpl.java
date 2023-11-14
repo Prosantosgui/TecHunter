@@ -55,7 +55,6 @@ public class RecruiterServiceImpl implements RecruiterService {
         recruiterSaved.setName(modifiedRecruiter.getName());
         recruiterSaved.setCompany(modifiedRecruiter.getCompany());
         recruiterSaved.setCountry(modifiedRecruiter.getCountry());
-        recruiterSaved.setPassword(modifiedRecruiter.getPassword());
 
         return recruiterSaved;
     }
