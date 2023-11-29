@@ -39,11 +39,6 @@ public class TestConfig implements CommandLineRunner{
 	@Autowired
 	private PositionRepository positionRepository;
 
-	@Bean
-	public ModelMapper modelMapper(){
-		return new ModelMapper();
-	}
-
 	@Override
 	public void run(String... args) throws Exception {
 		try {

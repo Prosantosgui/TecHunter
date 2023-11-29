@@ -3,6 +3,7 @@ package com.prosantosgui.techunter.resources;
 import com.prosantosgui.techunter.model.user.AuthenticationDTO;
 import com.prosantosgui.techunter.model.user.RegisterDTO;
 import com.prosantosgui.techunter.services.AuthorizationService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/auth")
+@Tag(name = "Authentication", description = "Bearer Token JWT")
 public class AuthenticationResource {
 
     @Autowired

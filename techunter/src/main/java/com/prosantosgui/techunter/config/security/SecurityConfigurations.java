@@ -22,6 +22,19 @@ public class SecurityConfigurations{
     @Autowired
     SecurityFilter securityFilter;
 
+    private static final String[] AUTH_WHITELIST = {
+            // -- swagger ui
+            "/v1/api-docs",
+            "/v2/api-docs",
+            "/v3/api-docs",
+            "/api-docs/**",
+            "/api-docs.html",
+            "/swagger-resources/**",
+            "/swagger-ui/**",
+            "/swagger-ui.html",
+            "/webjars/**"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
@@ -30,6 +43,7 @@ public class SecurityConfigurations{
                 .authorizeHttpRequests(authorize ->  authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+                        .requestMatchers(AUTH_WHITELIST).permitAll()
                         .requestMatchers("/api/positions").hasRole("RECRUITER")
                         .requestMatchers(HttpMethod.GET,"/api/positions").hasRole("CANDIDATE")
                         .requestMatchers("/api/recruiters").hasRole("RECRUITER")
@@ -37,14 +51,18 @@ public class SecurityConfigurations{
 
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(
+                        securityFilter, UsernamePasswordAuthenticationFilter.class
+                )
                 .build();
     }
+
 
     @Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){
