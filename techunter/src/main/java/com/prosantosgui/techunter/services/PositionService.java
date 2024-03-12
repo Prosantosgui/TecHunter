@@ -1,7 +1,6 @@
 package com.prosantosgui.techunter.services;
 
 import com.prosantosgui.techunter.model.Position;
-import com.prosantosgui.techunter.model.dto.PositionDTO;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;

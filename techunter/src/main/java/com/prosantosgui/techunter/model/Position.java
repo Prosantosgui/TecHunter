@@ -65,11 +65,10 @@ public class Position implements Serializable{
 
 	}
 
-	public Position(Long id, Recruiter recruiter, String type, String workDuration, String description,
+	public Position( Recruiter recruiter, String type, String workDuration, String description,
 					List<String> stacks, String employmentType, List<String> benefits, List<String> salaryRanges,
 					String requiredEducation, String country, String state, Instant date, PositionStatus positionStatus) {
 		super();
-		this.id = id;
 		this.recruiter = recruiter;
 		this.type = type;
 		this.workDuration = workDuration;

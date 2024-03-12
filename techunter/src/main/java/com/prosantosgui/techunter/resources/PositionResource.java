@@ -1,7 +1,6 @@
 package com.prosantosgui.techunter.resources;
 
 import com.prosantosgui.techunter.model.Position;
-import com.prosantosgui.techunter.model.dto.PositionDTO;
 import com.prosantosgui.techunter.services.PositionService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -81,7 +80,7 @@ public class PositionResource {
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error saving data"),
 	})
-	public ResponseEntity<PositionDTO> save(@RequestBody PositionDTO position){
+	public ResponseEntity<Position> save(@RequestBody Position position){
 		try{
 			return service.savePosition(position);
 		}
