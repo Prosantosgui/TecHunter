@@ -24,7 +24,7 @@ public class CandidateResource {
 	@GetMapping(value = "/candidates")
 	@Operation(summary = "Return all candidates", method = "GET")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
@@ -37,7 +37,7 @@ public class CandidateResource {
 	@GetMapping(value = "/candidates/{id}")
 	@Operation(summary = "Return a candidate", method = "GET")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
@@ -52,7 +52,7 @@ public class CandidateResource {
 
 	@Operation(summary = "Update an existing candidate", method = "PUT")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error updating data"),
@@ -75,7 +75,7 @@ public class CandidateResource {
 
 	@Operation(summary = "Save a new candidate", method = "POST")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error saving data"),
@@ -92,7 +92,7 @@ public class CandidateResource {
 
 	@Operation(summary = "Delete an existing candidate", method = "DELETE")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error deleting data"),

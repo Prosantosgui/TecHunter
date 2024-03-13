@@ -24,7 +24,7 @@ public class RecruiterResource {
 	@GetMapping(value = "/recruiters")
 	@Operation(summary = "Return all recruiters", method = "GET")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
@@ -37,7 +37,7 @@ public class RecruiterResource {
 	@GetMapping(value = "/recruiters/{id}")
 	@Operation(summary = "Return a recruiter", method = "GET")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
@@ -49,7 +49,7 @@ public class RecruiterResource {
 
 	@Operation(summary = "Update an existing recruiter", method = "PUT")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error updating data"),
@@ -73,7 +73,7 @@ public class RecruiterResource {
 	@PostMapping(value = "/recruiters")
 	@Operation(summary = "Save a new recruiter", method = "POST")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error saving data"),
@@ -91,7 +91,7 @@ public class RecruiterResource {
 	@DeleteMapping(value = "/recruiters/{id}")
 	@Operation(summary = "Delete an existing recruiter", method = "DELETE")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error deleting data"),

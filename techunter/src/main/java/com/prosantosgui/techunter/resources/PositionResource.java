@@ -24,7 +24,7 @@ public class PositionResource {
 	@GetMapping(value = "/positions")
 	@Operation(summary = "Return all positions", method = "GET")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
@@ -37,7 +37,7 @@ public class PositionResource {
 	@GetMapping(value = "/positions/{id}")
 	@Operation(summary = "Return a position", method = "GET")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
@@ -55,7 +55,7 @@ public class PositionResource {
 	@PutMapping(value = "/positions/{id}")
 	@Operation(summary = "Update an existing position", method = "PUT")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error updating data"),
@@ -75,7 +75,7 @@ public class PositionResource {
 	@PostMapping(value = "/positions")
 	@Operation(summary = "Save a new position", method = "POST")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error saving data"),
@@ -93,7 +93,7 @@ public class PositionResource {
 	@DeleteMapping(value = "/positions/{id}")
 	@Operation(summary = "Delete an existing position", method = "DELETE")
 	@ApiResponses(value = {
-			@ApiResponse(responseCode = "200", description = "Sucess"),
+			@ApiResponse(responseCode = "200", description = "Success"),
 			@ApiResponse(responseCode = "422", description = "Invalid data"),
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error deleting data"),
