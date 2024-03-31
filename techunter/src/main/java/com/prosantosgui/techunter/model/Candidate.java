@@ -32,7 +32,7 @@ public class Candidate {
 
 	private String email;
 
-	@OneToMany(mappedBy = "id.candidate", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "id.candidate", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private final Set<Application> applications = new HashSet<>();
 
 	public Candidate(){
