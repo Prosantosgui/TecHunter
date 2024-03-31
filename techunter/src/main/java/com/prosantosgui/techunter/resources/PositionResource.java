@@ -20,7 +20,7 @@ public class PositionResource {
 
 	@Autowired
 	private PositionService service;
-	
+
 	@GetMapping(value = "/positions")
 	@Operation(summary = "Return all positions", method = "GET")
 	@ApiResponses(value = {
@@ -30,10 +30,23 @@ public class PositionResource {
 			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
 	})
 	public ResponseEntity<List<Position>> findAll(){
-		List<Position> list = service.findAll(); 
+		List<Position> list = service.findAll();
 		return ResponseEntity.ok().body(list);
 	}
-	
+
+	@GetMapping(value = "/positions/recruiter/{idRecruiter}")
+	@Operation(summary = "Return all positions created by a Recruiter", method = "GET")
+	@ApiResponses(value = {
+			@ApiResponse(responseCode = "200", description = "Success"),
+			@ApiResponse(responseCode = "422", description = "Invalid data"),
+			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
+			@ApiResponse(responseCode = "500", description = "Error retrieving data"),
+	})
+	public ResponseEntity<List<Position>> getAllPositionsOfRecruiter(@PathVariable String idRecruiter){
+		List<Position> positions = service.findAllByRecruiter(idRecruiter);
+		return ResponseEntity.ok().body(positions);
+	}
+
 	@GetMapping(value = "/positions/{id}")
 	@Operation(summary = "Return a position", method = "GET")
 	@ApiResponses(value = {

@@ -9,6 +9,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -45,17 +46,18 @@ public class SecurityConfigurations{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity
-                .csrf(csrf -> csrf.disable())
+                .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests(authorize ->  authorize
+                        .requestMatchers("/api/position").hasRole("RECRUITER")
+                        .requestMatchers(HttpMethod.GET, "api/position").hasAnyRole("RECRUITER", "CANDIDATE")
+                        .requestMatchers("/api/recruiters").hasRole("RECRUITER")
+                        .requestMatchers(HttpMethod.GET,"/api/candidates").hasAnyRole("RECRUITER", "CANDIDATE")
+                        .requestMatchers("/api/candidates").hasRole("CANDIDATE")
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
                         .requestMatchers(AUTH_WHITELIST).permitAll()
-                        .requestMatchers("/api/positions").hasRole("RECRUITER")
-                        .requestMatchers(HttpMethod.GET,"/api/positions").hasRole("CANDIDATE")
-                        .requestMatchers("/api/recruiters").hasRole("RECRUITER")
-                        .requestMatchers(HttpMethod.GET,"/api/candidates").hasRole("RECRUITER")
 
                         .anyRequest().authenticated()
                 )
@@ -82,7 +84,7 @@ public class SecurityConfigurations{
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET","POST","PUT","DELETE", "HEAD", "OPTIONS"));
-        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
+        configuration.setAllowedHeaders(List.of("Authorization", "Content-Type", "IgnoreInterceptor"));
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;

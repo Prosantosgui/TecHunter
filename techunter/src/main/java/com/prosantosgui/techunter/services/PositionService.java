@@ -19,5 +19,5 @@ public interface PositionService {
 
 	ResponseEntity<Position> updatePosition(Long id, Position positionSaved, Position modifiedPosition);
 
-
+	List<Position> findAllByRecruiter(String idRecruiter);
 }

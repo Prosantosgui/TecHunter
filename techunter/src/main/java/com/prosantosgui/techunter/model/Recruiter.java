@@ -28,7 +28,7 @@ public class Recruiter {
 	@NotNull @NotBlank
 	private String company;
 	
-	@OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "recruiter", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	private final List<Position> positions = new ArrayList<>();
 	
 	public Recruiter() {

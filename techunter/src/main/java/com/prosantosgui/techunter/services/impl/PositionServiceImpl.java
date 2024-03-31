@@ -1,8 +1,10 @@
 package com.prosantosgui.techunter.services.impl;
 
 import com.prosantosgui.techunter.model.Position;
+import com.prosantosgui.techunter.model.Recruiter;
 import com.prosantosgui.techunter.repositories.PositionRepository;
 import com.prosantosgui.techunter.services.PositionService;
+import com.prosantosgui.techunter.services.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,12 +19,23 @@ import java.util.Optional;
 public class PositionServiceImpl implements PositionService {
 
     @Autowired
+    private RecruiterService recruiterService;
+
+    @Autowired
     private PositionRepository positionRepository;
     @Override
     public List<Position> findAll() {
         return positionRepository.findAll();
     }
 
+    @Override
+    public List<Position> findAllByRecruiter(String idRecruiter) {
+        Recruiter recruiter = recruiterService.findById(idRecruiter);
+        if(recruiter != null){
+            return recruiter.getPositions();
+        }
+        throw new NoSuchElementException();
+    }
     @Override
     public Position findById(Long id) {
         Optional<Position> position = positionRepository.findById(id);

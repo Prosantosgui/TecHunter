@@ -25,11 +25,7 @@ public class RecruiterServiceImpl implements RecruiterService {
     public Recruiter findById(String id) {
         Optional<Recruiter> obj = recruiterRepository.findById(id);
 
-        if(obj.isPresent()){
-            return obj.get();
-        }else{
-            throw new NoSuchElementException();
-        }
+        return obj.orElse(null);
     }
 
     public ResponseEntity<Recruiter> saveRecruiter(Recruiter recruiter){
