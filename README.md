@@ -12,6 +12,14 @@ The objective of this project is to make my own version of a job position portal
   <li>Unit tests</li>
   <li>API documentation with SWAGGER UI</li>
 </ul>
+
+<h3>For running this project you will need:</h3>
+<ul>
+  <li>JDK 17</li>
+</ul>
+
+After running the project you can access and test the endpoint in swagger with this link: http://localhost:8080/swagger-ui/index.html#/
+
 <br>
 <h3 align="center">Data model diagram</h3>
 
