@@ -1,16 +1,25 @@
 <h1>TecHunter - Job position portal made with Java/Spring Framework</h1>
 
-<h2>About the project</h2>
+<h2>📝About the project</h2>
 
 A complete project made from scratch, this system make use of actual technologies to enrich the business model.
 
-The objective of this project is to make my own version of a job position portal and challenge me on the way to it, and here are what you'll see here at this point;
+The objective of this project is to make my own version of a job position portal, using REST Architecture to make the API easier to consume and integrate;
 
 <ul>
   <li>Many-to-Many, Many-to-One relationship</li>
+  <li>Resources available through HTTP methods</li>
   <li>Authentication and Authorization with JWT and Spring Security</li>
   <li>Unit tests</li>
   <li>API documentation with SWAGGER UI</li>
+</ul>
+
+<h3>🎯Functionalities</h3>
+<ul>
+  <li>Candidates can apply to open positions</li>
+  <li>Recruiter can open, edit and delete its positions</li>
+  <li>ADMIN </li> 
+  <li>Three different roles to use: ADMIN, CANDIDATE, RECRUITER</li>
 </ul>
 
 <h3>For running this project you will need:</h3>
@@ -18,7 +27,18 @@ The objective of this project is to make my own version of a job position portal
   <li>JDK 17</li>
 </ul>
 
-After running the project you can access and test the endpoint in swagger with this link: http://localhost:8080/swagger-ui/index.html#/
+<h3>Cloning</h3>
+<p>To clone the project</p>
+
+```
+git clone https://github.com/Prosantosgui/TecHunter.git
+```
+
+<p>After running the project you can access and test the endpoint in swagger with this link:</p> 
+
+  ```
+  http://localhost:8080/swagger-ui/index.html#/
+  ```
 
 <br>
 <h3 align="center">Data model diagram</h3>
