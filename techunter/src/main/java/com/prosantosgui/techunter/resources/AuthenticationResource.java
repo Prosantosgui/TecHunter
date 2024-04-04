@@ -1,6 +1,7 @@
 package com.prosantosgui.techunter.resources;
 
 import com.prosantosgui.techunter.model.user.AuthenticationDTO;
+import com.prosantosgui.techunter.model.user.LoginResponseDTO;
 import com.prosantosgui.techunter.model.user.RegisterDTO;
 import com.prosantosgui.techunter.services.AuthorizationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,9 +26,8 @@ public class AuthenticationResource {
     private AuthorizationService authorizationService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticationDTO data){
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody @Valid AuthenticationDTO data){
         return authorizationService.login(data);
-
     }
 
     @PostMapping("/register")
