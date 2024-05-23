@@ -24,7 +24,6 @@ class CandidateRepositoryTest {
     @BeforeEach
     public void setup(){
         candidate0 = new Candidate("Vino23",
-                "21451",
                 "Vinicius",
                 "2154156165",
                 "Rio de Janeiro",
@@ -72,14 +71,14 @@ class CandidateRepositoryTest {
         String newLocation = "São Paulo";
 
         candidateSaved.setName(newName);
-        candidateSaved.setLocation(newLocation);
+        candidateSaved.setCountry(newLocation);
         Candidate updatedCandidate = this.candidateRepository.save(candidateSaved);
 
         Assertions.assertThat(updatedCandidate).isNotNull();
         Assertions.assertThat(updatedCandidate.getName()).isNotNull();
-        Assertions.assertThat(updatedCandidate.getLocation()).isNotNull();
+        Assertions.assertThat(updatedCandidate.getCountry()).isNotNull();
         Assertions.assertThat(updatedCandidate.getName()).isEqualTo(newName);
-        Assertions.assertThat(updatedCandidate.getLocation()).isEqualTo(newLocation);
+        Assertions.assertThat(updatedCandidate.getCountry()).isEqualTo(newLocation);
     }
 
     @Test

@@ -9,11 +9,8 @@ import java.util.*;
 public class Candidate {
 	
 	@Id
-	@Column(name = "login_cand", nullable = false, length = 15)
+	@Column(name = "login_cand", nullable = false, length = 25)
 	private String login;
-	
-	@Column(nullable = false, length = 15)
-	private String password;
 
 	@Column(nullable = false, length = 30)
 	private String name;
@@ -22,7 +19,7 @@ public class Candidate {
 	private String phoneNumber;
 	
 	@Column(length = 20)
-	private String location;
+	private String country;
 	
 	@Column(name = "immediate_availability")
 	private boolean immediateAvailability;
@@ -38,26 +35,23 @@ public class Candidate {
 	public Candidate(){
 	}
 
-	public Candidate(String login, String password, String name, String phoneNumber, String location, boolean immediateAvailability, String state) {
+	public Candidate(String login, String name, String phoneNumber, String country, boolean immediateAvailability, String state) {
 		super();
 		this.login = login;
-		this.password = password;
 		this.name = name;
 		this.phoneNumber = phoneNumber;
-		this.location = location;
+		this.country = country;
 		this.immediateAvailability = immediateAvailability;
 		this.state = state;
 	}
 
 	public String getLogin() {return login;}
 
-	public String getPassword() {return password;}
-
 	public String getName() {return name;}
 
 	public String getPhoneNumber() {return phoneNumber;}
 
-	public String getLocation() {return location;}
+	public String getCountry() {return country;}
 
 	public boolean ImmediateAvailability() {return immediateAvailability;}
 
@@ -69,13 +63,11 @@ public class Candidate {
 
 	public void setLogin(String login) {this.login = login;}
 
-	public void setPassword(String password) {this.password = password;}
-
 	public void setName(String name) {this.name = name;}
 
 	public void setPhoneNumber(String phoneNumber) {this.phoneNumber = phoneNumber;}
 
-	public void setLocation(String location) {this.location = location;}
+	public void setCountry(String country) {this.country = country;}
 
 	public void setImmediateAvailability(boolean immediateAvailability) {this.immediateAvailability = immediateAvailability;}
 
