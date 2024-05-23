@@ -3,6 +3,7 @@ package com.prosantosgui.techunter.resources;
 import com.prosantosgui.techunter.model.user.AuthenticationDTO;
 import com.prosantosgui.techunter.model.user.LoginResponseDTO;
 import com.prosantosgui.techunter.model.user.RegisterDTO;
+import com.prosantosgui.techunter.model.user.User;
 import com.prosantosgui.techunter.services.AuthorizationService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -31,7 +32,7 @@ public class AuthenticationResource {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid RegisterDTO data){
+    public ResponseEntity<User> register(@RequestBody @Valid RegisterDTO data){
         return authorizationService.register(data);
     }
 

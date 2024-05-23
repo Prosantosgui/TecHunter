@@ -13,6 +13,8 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -20,6 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -42,19 +45,29 @@ public class AuthorizationService implements UserDetailsService {
 
         if (passwordEncoder.matches(data.password(), user.getPassword())) {
             String token = this.tokenService.generateToken((User) user);
-            return ResponseEntity.ok(new LoginResponseDTO(user.getUsername(), token));
+            Collection<? extends GrantedAuthority> roles = user.getAuthorities();
+            return ResponseEntity.ok(new LoginResponseDTO(user.getUsername(), token,checkUserAuthorities(roles)));
         }else{
             throw new NotAuthorizedException("Bad credentials!");
         }
     }
 
-    public ResponseEntity<String> register (@RequestBody @Valid RegisterDTO registerDto) throws AuthenticationException{
+    public ResponseEntity<User> register (@RequestBody @Valid RegisterDTO registerDto) throws AuthenticationException{
         Optional<UserDetails> user = this.repository.findByLogin(registerDto.login());
         if (user.isPresent()) throw new AuthenticationException("User for this login is taken!");
 
         String encryptedPassword = passwordEncoder.encode(registerDto.password());
         User newUser = new User(registerDto.login(), encryptedPassword, registerDto.role());
         this.repository.save(newUser);
-        return new ResponseEntity<String>("User Created!", HttpStatus.CREATED);
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
+    }
+
+    private String checkUserAuthorities(Collection<? extends GrantedAuthority> roles){
+        if (roles.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
+            return "ADMIN";
+        } else if (roles.contains(new SimpleGrantedAuthority("ROLE_RECRUITER"))) {
+            return "RECRUITER";
+        }
+        return "CANDIDATE";
     }
 }
