@@ -111,13 +111,8 @@ public class PositionResource {
 			@ApiResponse(responseCode = "400", description = "Invalid Parameters"),
 			@ApiResponse(responseCode = "500", description = "Error deleting data"),
 	})
-	public ResponseEntity<String> deleteById(@PathVariable Long id){
-		try{
-			return service.deleteById(id);
+	public ResponseEntity<String> deleteById(@PathVariable Long id) throws Exception {
 
-		}catch (Exception e){
-			e.printStackTrace();
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return service.deleteById(id);
 	}
 }

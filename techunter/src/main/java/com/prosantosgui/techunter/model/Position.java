@@ -44,7 +44,7 @@ public class Position implements Serializable{
 	private List<String> benefits;
 	
 	@Column(nullable = false)
-	private List<String> salaryRanges;
+	private List<Integer> salaryRanges;
 
 	@Column(name = "required_education")
 	private String requiredEducation;
@@ -66,7 +66,7 @@ public class Position implements Serializable{
 	}
 
 	public Position( Recruiter recruiter, String type, String workDuration, String description,
-					List<String> stacks, String employmentType, List<String> benefits, List<String> salaryRanges,
+					List<String> stacks, String employmentType, List<String> benefits, List<Integer> salaryRanges,
 					String requiredEducation, String country, String state, Instant date, PositionStatus positionStatus) {
 		super();
 		this.recruiter = recruiter;
@@ -100,7 +100,7 @@ public class Position implements Serializable{
 
 	public List<String> getBenefits() {return benefits;}
 
-	public List<String> getSalaryRanges() {return salaryRanges;}
+	public List<Integer> getSalaryRanges() {return salaryRanges;}
 
 	public String getRequiredEducation() {return requiredEducation;}
 
@@ -130,7 +130,7 @@ public class Position implements Serializable{
 
 	public void setBenefits(List<String> benefits) {this.benefits = benefits;}
 
-	public void setSalaryRanges(List<String> salaryRanges) {this.salaryRanges = salaryRanges;}
+	public void setSalaryRanges(List<Integer> salaryRanges) {this.salaryRanges = salaryRanges;}
 
 	public void setRequiredEducation(String requiredEducation) {this.requiredEducation = requiredEducation;}
 

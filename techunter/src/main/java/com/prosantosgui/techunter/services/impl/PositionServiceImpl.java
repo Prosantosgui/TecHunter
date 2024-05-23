@@ -1,5 +1,6 @@
 package com.prosantosgui.techunter.services.impl;
 
+import com.prosantosgui.techunter.exceptions.AuthenticationException;
 import com.prosantosgui.techunter.model.Position;
 import com.prosantosgui.techunter.model.Recruiter;
 import com.prosantosgui.techunter.repositories.PositionRepository;
@@ -8,13 +9,16 @@ import com.prosantosgui.techunter.services.RecruiterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import com.prosantosgui.techunter.exceptions.NoSuchElementException;
 @Service
 public class PositionServiceImpl implements PositionService {
 
@@ -23,6 +27,7 @@ public class PositionServiceImpl implements PositionService {
 
     @Autowired
     private PositionRepository positionRepository;
+
     @Override
     public List<Position> findAll() {
         return positionRepository.findAll();
@@ -34,7 +39,7 @@ public class PositionServiceImpl implements PositionService {
         if(recruiter != null){
             return recruiter.getPositions();
         }
-        throw new NoSuchElementException();
+        throw new NoSuchElementException("No Recruiter for this ID!");
     }
     @Override
     public Position findById(Long id) {
@@ -42,33 +47,39 @@ public class PositionServiceImpl implements PositionService {
         if(position.isPresent()){
             return position.get();
         }else{
-            throw new NoSuchElementException();
+            throw new NoSuchElementException("No position for this ID!");
         }
     }
 
     @Override
     public ResponseEntity<Position> savePosition(Position position) {
-        Position positionSaved = positionRepository.save(position);
-        return new ResponseEntity<>(positionSaved, HttpStatus.CREATED);
+        String userLoggedName = SecurityContextHolder.getContext().getAuthentication().getName();
+        Recruiter recruiterLogged = recruiterService.findById(userLoggedName);
+
+        if(recruiterLogged != null){
+            position.setRecruiter(recruiterLogged);
+            Position positionSaved = positionRepository.save(position);
+            return new ResponseEntity<>(positionSaved, HttpStatus.CREATED);
+        }else{
+            return new ResponseEntity<>(position, HttpStatus.FORBIDDEN);
+        }
     }
 
     @Override
     public ResponseEntity<String> deleteById(Long id) {
         String userLoggedName = SecurityContextHolder.getContext().getAuthentication().getName();
-
         Optional<Position> position = positionRepository.findById(id);
-        if(position.isPresent() && position.get().getRecruiter().getLogin().equals(userLoggedName)){
+
+        Collection<? extends GrantedAuthority> userAuthorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+
+        boolean admin = userAuthorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        boolean userIsPositionOwner = position.orElseThrow(()-> new NoSuchElementException("No position for this ID!")).getRecruiter().getLogin().equals(userLoggedName);
+
+        if(userIsPositionOwner || admin){
             positionRepository.deleteById(id);
             return new ResponseEntity<>("Position deleted successfully!", HttpStatus.OK);
-
         }else {
-
-            if (position.isEmpty()){
-                return new ResponseEntity<String>("Position not found!", HttpStatus.NOT_FOUND);
-            }else {
-                return new ResponseEntity<String>("You have no permission to delete this Position!", HttpStatus.FORBIDDEN);
-            }
-
+            throw new AuthenticationException("You have no permission to delete this position!");
         }
     }
 
@@ -94,8 +105,12 @@ public class PositionServiceImpl implements PositionService {
     public ResponseEntity<Position> updatePosition(Long id, Position positionSaved, Position modifiedPosition) {
 
         String userLoggedName = SecurityContextHolder.getContext().getAuthentication().getName();
+        Collection<? extends GrantedAuthority> userAuthorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
 
-        if(positionSaved.getRecruiter().getLogin().equals(userLoggedName)){
+        boolean admin = userAuthorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
+        boolean userIsPositionOwner = positionSaved.getRecruiter().getLogin().equals(userLoggedName);
+
+        if(userIsPositionOwner || admin){
             Position updatedPosition = this.mapNewPosition(id, positionSaved,modifiedPosition);
             positionRepository.save(updatedPosition);
             return new ResponseEntity<>(updatedPosition, HttpStatus.OK);
